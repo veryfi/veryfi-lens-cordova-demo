@@ -53,7 +53,7 @@ cordova platform add android
 
 ### Other platforms <a name="other_platforms"></a>
 We also support the following wrappers for native and hybrid frameworks:
-- [Cordova](https://hub.veryfi.com/lens/docs/cordova/)
+- [Capacitor](https://hub.veryfi.com/lens/docs/capacitor/)
 - [React Native](https://hub.veryfi.com/lens/docs/react-native/)
 - [Flutter](https://hub.veryfi.com/lens/docs/flutter/)
 - [Xamarin](https://hub.veryfi.com/lens/docs/xamarin/)
