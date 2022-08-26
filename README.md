@@ -43,7 +43,7 @@ var vUserName = "XXXX";  // replace XXX with your assigned Username
 var vApiKey = "XXXX"; // replace XXX with your assigned API Key 
 ```
 
-- Add your desider platforms
+- Add your desired platforms
 ```
 cordova platform add ios
 cordova platform add android
