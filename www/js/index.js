@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-var app = {
+const app = {
     // Application Constructor
     initialize: function () {
         document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
@@ -35,12 +35,12 @@ var app = {
 
 
         // [2] Initialize Veryfi Lens
-        var isDebug = true;
-        var vUrl = "XXXX";
-        var vClientId = "XXXX";
-        var vUserName = "XXXX";
-        var vApiKey = "XXXX";
-        var settings = {
+        const isDebug = true;
+        const vUrl = "XXXX";
+        const vClientId = "XXXX";
+        const vUserName = "XXXX";
+        const vApiKey = "XXXX";
+        const settings = {
             "blurDetectionIsOn": true,
             "autoLightDetectionIsOn": false,
             "autoCaptureIsOn": false,
@@ -78,7 +78,7 @@ var app = {
             $('#veryfi_response').append('<hr>*** pressed: #btn-launch-veryfi-camera ***');
             cordova.plugins.Veryfi.Lens.showCamera(
                 function (response) {
-                    var jsonObject = JSON.parse(response);
+                    const jsonObject = JSON.parse(response);
                     if (jsonObject.event === "veryfi_lens_close") {
                         $('#veryfi_response').append("<hr>*** veryfi_lens_close response = " + response);
                     }
@@ -87,7 +87,7 @@ var app = {
                         if (jsonObject.msg === "img_thumbnail_path") {
                             cordova.plugins.Veryfi.Lens.getFileBase64(jsonObject,
                                 function (response) {
-                                    $('#veryfi_response').append("<hr>*** THUMBNAIL:<br><img src=\"data:image/jpg;base64, " + response + "\" style=\"width: 50px\" /><br>");
+                                    $('#veryfi_response').append("<hr>*** THUMBNAIL:<br><img src=\"data:image/jpg;base64, " + response + "\" style=\"width: 50px\" alt=\"\"/><br>");
                                 }, function (error) {
                                     $('#veryfi_response').append("<hr>*** cordova.plugins.Veryfi.Lens.getImgThumbnailBase64 error = " + error);
                                 }
@@ -97,7 +97,7 @@ var app = {
                         if (jsonObject.msg === "img_original_path") {
                             cordova.plugins.Veryfi.Lens.getFileBase64(jsonObject,
                                 function (response) {
-                                    $('#veryfi_response').append("<hr>*** ORIGINAL:<br><img src=\"data:image/jpg;base64, " + response + "\" style=\"width: 200px\" /><br>");
+                                    $('#veryfi_response').append("<hr>*** ORIGINAL:<br><img src=\"data:image/jpg;base64, " + response + "\" style=\"width: 200px\" alt=\"\" /><br>");
                                 }, function (error) {
                                     $('#veryfi_response').append("<hr>*** cordova.plugins.Veryfi.Lens.getImgOriginalBase64 error = " + error);
                                 }
@@ -150,24 +150,14 @@ var app = {
 
     // Update DOM on a Received Event
     receivedEvent: function (id) {
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
+        const parentElement = document.getElementById(id);
+        const listeningElement = parentElement.querySelector('.listening');
+        const receivedElement = parentElement.querySelector('.received');
 
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
 
-        //console.log('Received Event: ' + id);
     }
 };
 
 app.initialize();
-
-function largeLog(tag, content) {
-    if (content.length > 4000) {
-        console.log(tag, content.substring(0, 4000));
-        largeLog(tag, content.substring(4000));
-    } else {
-        console.log(tag, content);
-    }
-}
