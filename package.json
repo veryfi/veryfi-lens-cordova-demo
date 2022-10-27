@@ -13,7 +13,7 @@
   "author": "Apache Cordova Team",
   "license": "Apache-2.0",
   "devDependencies": {
-    "@veryfi/cordova-plugin-veryfi-lens": "^2.2.10",
+    "@veryfi/cordova-plugin-veryfi-lens": "^2.2.11",
     "platform": "^1.3.6"
   },
   "cordova": {
