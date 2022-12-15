@@ -23,8 +23,8 @@
       "cordova-plugin-veryfi-lens": {}
     },
     "platforms": [
-      "android",
-      "ios"
+      "ios",
+      "android"
     ]
   }
 }
