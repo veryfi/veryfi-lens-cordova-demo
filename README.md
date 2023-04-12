@@ -50,7 +50,6 @@ cordova platform add ios
 cordova platform add android
 ```
 
-```
 Min SDK Android 6.0 (API level 23)
 Min iOS version 12
 
