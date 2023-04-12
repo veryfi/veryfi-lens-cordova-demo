@@ -49,9 +49,8 @@ var vApiKey = "XXXX"; // replace XXX with your assigned API Key
 cordova platform add ios
 cordova platform add android
 ```
-
-- Min SDK Android 6.0 (API level 23)
-- Min iOS version 12
+Min SDK Android 6.0 (API level 23)
+Min iOS version 12
 
 - Run the project using the IDE of each platform or the terminal
 
