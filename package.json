@@ -25,5 +25,8 @@
       "ios",
       "android"
     ]
+  },
+  "dependencies": {
+    "@veryfi/cordova-plugin-veryfi-lens": "^2.5.4"
   }
 }
