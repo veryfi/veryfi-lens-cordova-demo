@@ -22,11 +22,11 @@
       "cordova-plugin-veryfi-lens": {}
     },
     "platforms": [
-      "ios",
-      "android"
+      "android",
+      "ios"
     ]
   },
   "dependencies": {
-    "@veryfi/cordova-plugin-veryfi-lens": "^2.5.13"
+    "@veryfi/cordova-plugin-veryfi-lens": "^2.5.16"
   }
 }
