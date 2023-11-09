@@ -27,6 +27,6 @@
     ]
   },
   "dependencies": {
-    "@veryfi/cordova-plugin-veryfi-lens": "^2.5.20"
+    "@veryfi/cordova-plugin-veryfi-lens": "^2.5.21"
   }
 }
