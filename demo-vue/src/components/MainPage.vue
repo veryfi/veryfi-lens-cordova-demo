@@ -1,33 +1,78 @@
 <script setup>
+import { Vue3Lottie } from 'vue3-lottie';
+import LoadingAnimation from '@/assets/loading_animation.json';
 import SettingsDialog from './SettingsDialog.vue';
+import VueJsonPretty from 'vue-json-pretty';
+import 'vue-json-pretty/lib/styles.css';
 </script>
 
 <template>
-    <v-container class="d-flex flex-row justify-center pt-10">
-        <img :src="require(`@/assets/ic_veryfi_logo_black.svg`)" width="150" height="auto" class="justify-center" />
-    </v-container>
+    <div v-if="!showLoading && !showLogs">
+        <v-container class="d-flex flex-row justify-center pt-10">
+            <img :src="require(`@/assets/ic_veryfi_logo_black.svg`)" width="150" height="auto" class="justify-center" />
+        </v-container>
 
-    <v-card class="rounded-lg mx-5 my-2">
-        <v-list>
-            <v-list-subheader class="text-h6 font-weight-black">Solutions</v-list-subheader>
-            <v-list-item v-for="document in documentTypes" :key="document.type" class="py-1" @click="start(document.type)">
-                <template v-slot:prepend>
-                    <v-img :src="require(`@/assets/${document.icon}`)" :width="24" :height="24" />
-                </template>
+        <v-card class="rounded-lg mx-5 my-2">
+            <v-list>
+                <v-list-subheader class="text-h6 font-weight-black">Solutions</v-list-subheader>
+                <v-list-item v-for="document in documentTypes" :key="document.type" class="py-1"
+                    @click="start(document.type)">
+                    <template v-slot:prepend>
+                        <v-img :src="require(`@/assets/${document.icon}`)" :width="24" :height="24" />
+                    </template>
 
-                <v-list-item-title class="mx-2 text-subtitle-1">{{ document.text }}</v-list-item-title>
+                    <v-list-item-title class="mx-2 text-subtitle-1">{{ document.text }}</v-list-item-title>
 
-                <template v-slot:append>
-                    <v-img :src="require(`@/assets/ic_vector_settings.svg`)" :width="24" :height="24"
-                        @click.stop="openSettings(document.type)" />
-                </template>
-            </v-list-item>
-        </v-list>
-    </v-card>
+                    <template v-slot:append>
+                        <v-img :src="require(`@/assets/ic_vector_settings.svg`)" :width="24" :height="24"
+                            @click.stop="openSettings(document.type)" />
+                    </template>
+                </v-list-item>
+            </v-list>
+        </v-card>
 
-    <v-bottom-sheet v-model="settingDialogIsOpen">
-        <SettingsDialog :document-type="documentTypeSelected" :settings="currentSettings" />
-    </v-bottom-sheet>
+        <v-bottom-sheet v-model="settingDialogIsOpen">
+            <SettingsDialog :document-type="documentTypeSelected" :settings="currentSettings" />
+        </v-bottom-sheet>
+    </div>
+    <div v-else-if="showLoading">
+        <v-container class="justify-center pt-10 text-center">
+            <v-row>
+                <v-col>
+                    <img :src="require(`@/assets/ic_veryfi_logo_black.svg`)" width="230" height="auto"
+                        class="justify-center" />
+                </v-col>
+            </v-row>
+            <v-row>
+                <v-col>
+                    <p class="text-h6 justify-center">Please wait... reading your document.</p>
+                </v-col>
+            </v-row>
+            <v-row>
+                <v-col>
+                    <Vue3Lottie :animationData="LoadingAnimation" :height="300" :width="300" />
+                </v-col>
+            </v-row>
+        </v-container>
+    </div>
+    <div v-else-if="showLogs">
+        <v-container class="pt-10">
+            <v-row>
+                <v-col>
+                    <v-icon icon="mdi-close" size="x-large" @click="closeLogs()"></v-icon>
+                </v-col>
+                <v-col>
+                    <p class="text-h5 text-center font-weight-bold">Logs</p>
+                </v-col>
+                <v-col></v-col>
+            </v-row>
+            <v-row>
+                <v-col>
+                    <vue-json-pretty :data="logs" />
+                </v-col>
+            </v-row>
+        </v-container>
+    </div>
 </template>
 <script>
 import * as DocumentTypes from '@/constants/document-types';
@@ -42,7 +87,6 @@ export default {
     name: 'MainPage',
     data() {
         return {
-            documentTypeSelected: 'None',
             currentSettings: null,
             deviceReady: false,
             settingDialogIsOpen: false,
@@ -113,11 +157,20 @@ export default {
                     text: "Lens for Driver License",
                 },
             ],
-            logs: []
+            showLogs: false,
+            showLoading: false,
         };
     },
     mounted() {
         document.addEventListener('deviceready', this.onDeviceReady, false)
+    },
+    computed: {
+        logs() {
+            return this.$store.state.logs
+        },
+        documentTypeSelected() {
+            return this.$store.state.documentTypeSelected
+        }
     },
     methods: {
         onDeviceReady() {
@@ -125,20 +178,60 @@ export default {
         },
         start(documentType) {
             if (!this.deviceReady) return;
+
+            this.$store.state.logs = [];
+            this.$store.state.documentTypeSelected = documentType;
             const settings = this.$store.state[documentType];
             window.cordova.plugins.Veryfi.Lens.init(isDebug, vUrl, vClientId, vUserName, vApiKey, settings);
             window.cordova.plugins.Veryfi.Lens.showCamera(
-                function (response) {
+                (response) => {
                     const jsonResponse = JSON.parse(response);
-                    this.logs.push(jsonResponse);
-                }, function (error) {
+                    this.checkLogs(jsonResponse);
+                },
+                (error) => {
                     console.log(error);
                 });
         },
         openSettings(documentType) {
-            this.documentTypeSelected = documentType;
+            this.$store.state.documentTypeSelected = documentType;
             this.currentSettings = this.$store.state[documentType];
             this.settingDialogIsOpen = true
+        },
+        checkLogs(response) {
+            switch (response.status) {
+                case "inprogress":
+                    if (!this.showLoading && this.documentTypeSelected != DocumentTypes.CREDIT_CARD || this.documentTypeSelected != DocumentTypes.BARCODES) this.showLoading = true;
+                    this.checkInProgress(response);
+                    break;
+                case "error":
+                    this.showErrorLogs();
+                    break;
+                case "done":
+                    this.showResults(response);
+                    break;
+            }
+            this.$store.state.logs.push(response);
+        },
+        showErrorLogs() {
+            this.showLogs = true;
+            this.showLoading = false;
+        },
+        closeLogs() {
+            this.showLogs = false;
+            this.showLoading = false;
+            this.documentTypeSelected = '';
+            this.$store.state.logs = [];
+        },
+        showResults(response) {
+            this.$store.state.dataExtracted = response.data;
+            this.$router.push('/extracted-data');
+            this.showLogs = false;
+            this.showLoading = false;
+        },
+        checkInProgress(response) {
+            if (response.msg == "img_original_path") {
+                this.$store.state.imgOriginalPath = response.data;
+            }
         }
     },
     beforeUnmount() {

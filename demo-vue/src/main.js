@@ -1,6 +1,24 @@
-import { createApp } from 'vue'
-import App from './App.vue'
-import store from './store'
+import store from './store';
+import App from './App.vue';
+import { createApp } from 'vue';
+import { createRouter, createWebHashHistory } from 'vue-router';
+import '@mdi/font/css/materialdesignicons.css';
+
+// Routes
+import MainPage from './components/MainPage.vue';
+import ExtractedDataPage from './components/ExtractedDataPage.vue';
+import ConsolePage from './components/ConsolePage.vue';
+
+const routes = [
+    { path: '/', name: 'Main', component: MainPage },
+    { path: '/extracted-data', name: 'Extracted data', component: ExtractedDataPage },
+    { path: '/console', name: 'Lens console', component: ConsolePage },
+]
+
+const router = createRouter({
+    history: createWebHashHistory(),
+    routes,
+});
 
 // Vuetify
 import 'vuetify/styles'
@@ -14,6 +32,7 @@ const vuetify = createVuetify({
 });
 
 createApp(App)
+    .use(router)
     .use(store)
     .use(vuetify)
     .mount('#app');
