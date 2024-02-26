@@ -7,7 +7,8 @@
                     <div class="font-weight-bold text-h5">Settings</div>
                 </v-col>
                 <v-col cols="4" class="text-right">
-                    <v-btn size="large" class="reset-button font-weight-bold" variant="flat" @click="resetSetting()">RESET</v-btn>
+                    <v-btn size="large" class="reset-button font-weight-bold" variant="flat"
+                        @click="resetSetting()">RESET</v-btn>
                 </v-col>
             </v-row>
 
@@ -24,7 +25,8 @@
                         <template v-slot:append>
                             <span v-if="option.type == 'text'" @click="openTextDialog(option)">{{
                                 this.$store.state[this.documentType][option.setting] == null ||
-                                this.$store.state[this.documentType][option.setting] == "" ? "N/A" :
+                                this.$store.state[this.documentType][option.setting] == "" ||
+                                this.$store.state[this.documentType][option.setting].length == 0 ? "N/A" :
                                 this.$store.state[this.documentType][option.setting]
                             }}</span>
                             <v-switch v-else-if="option.type == 'switch'"
@@ -165,7 +167,8 @@
         <v-dialog width="500" v-model="showSliderDialog">
             <v-card :title="dialogInfo.title" class="font-weight-bold">
                 <v-card-text>
-                    <v-slider :ticks="tickLabels" step="1" show-ticks="always" v-model="dialogInfo.value" thumb-label tick-size="1" />
+                    <v-slider :ticks="tickLabels" step="1" show-ticks="always" v-model="dialogInfo.value" thumb-label
+                        tick-size="1" />
                 </v-card-text>
 
                 <v-card-actions>

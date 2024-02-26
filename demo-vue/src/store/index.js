@@ -19,6 +19,8 @@ import {
 
 const store = createStore({
     state: {
+        documentTypeSelected: 'receipt',
+        imgOriginalPath: '',
         receipt: defaultReceiptConfig,
         long_receipt: defaultLongReceiptConfig,
         check: defaultCheckConfig,
@@ -32,6 +34,8 @@ const store = createStore({
         insurance_card: defaultInsuranceCardConfig,
         passport: defaultPassportConfig,
         driver_license: defaultDriverLicenseConfig,
+        logs: [],
+        dataExtracted: null,
     },
     mutations: {
         resetSetting(state, setting) {
