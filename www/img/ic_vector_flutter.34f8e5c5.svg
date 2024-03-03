@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt" width="24dp" height="24dp" viewportWidth="24" viewportHeight="24">
+	<path fill="#47C5FB" d="M14.246 0.00012207L2.3092 11.9369L6.00387 15.6316L21.6354 0.00012207H14.246Z"/>
+	<path fill="#47C5FB" d="M14.1628 11.008L7.77148 17.3993L11.48 21.1632L15.1679 17.4754L21.6354 11.008H14.1628Z"/>
+	<path fill="#00569E" d="M11.4801 21.1633L14.2875 23.9707H21.6354L15.1679 17.4754L11.4801 21.1633Z"/>
+	<path fill="#00B5F8" d="M7.72998 17.4408L11.4247 13.7461L15.1679 17.4754L11.4801 21.1633L7.72998 17.4408Z"/>
+	<path d="M11.4801 21.1633L14.5509 20.1443L14.8559 17.7874L11.4801 21.1633Z">
+		<aapt:attr name="fill">
+			<gradient endX="14.0423" endY="19.5738" startX="11.6135" startY="18.6986" tileMode="clamp">
+				<item color="#CC000000" offset="0"/>
+				<item color="#00000000" offset="1"/>
+			</gradient>
+		</aapt:attr>
+	</path>
+</svg>

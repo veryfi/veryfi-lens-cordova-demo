@@ -13,10 +13,9 @@ import 'vue-json-pretty/lib/styles.css';
         </v-container>
 
         <v-card class="rounded-lg mx-5 my-2">
+            <v-card-title class="font-weight-bold">Solutions</v-card-title>
             <v-list>
-                <v-list-subheader class="text-h6 font-weight-black">Solutions</v-list-subheader>
-                <v-list-item v-for="document in documentTypes" :key="document.type" class="py-1"
-                    @click="start(document.type)">
+                <v-list-item v-for="document in documentTypes" :key="document.type" @click="start(document.type)">
                     <template v-slot:prepend>
                         <v-img :src="require(`@/assets/${document.icon}`)" :width="24" :height="24" />
                     </template>
@@ -28,6 +27,27 @@ import 'vue-json-pretty/lib/styles.css';
                             @click.stop="openSettings(document.type)" />
                     </template>
                 </v-list-item>
+            </v-list>
+        </v-card>
+
+        <v-card class="rounded-lg mx-5 my-2 mb-5">
+            <v-card-title class="font-weight-bold">Learn & Supported platforms</v-card-title>
+            <v-list>
+                <v-list-item>
+                    <template v-slot:prepend>
+                        <v-img :src="require(`@/assets/ic_play.svg`)" :width="24" :height="24" />
+                    </template>
+                    <v-list-item-title class="mx-2 text-subtitle-1" @click="openBrowser()">Document capture using Veryfi Lens</v-list-item-title>
+                </v-list-item>
+                <div class="d-flex justify-end my-3 text-center">
+                    <v-img :src="require(`@/assets/ic_vector_ios_black.svg`)" class="mt-2" :width="24" :height="12" />
+                    <v-img :src="require(`@/assets/ic_vector_android.svg`)" :width="24" :height="24" />
+                    <v-img :src="require(`@/assets/ic_vector_flutter.svg`)" :width="24" :height="24" />
+                    <v-img :src="require(`@/assets/ic_vector_react.svg`)" :width="24" :height="24" />
+                    <v-img :src="require(`@/assets/ic_vector_xamarin.svg`)" :width="24" :height="24" />
+                    <v-img :src="require(`@/assets/ic_vector_cordova_black.svg`)" :width="24" :height="24" />
+                    <v-img :src="require(`@/assets/ic_vector_ionic.svg`)" :width="24" :height="24" />
+                </div>
             </v-list>
         </v-card>
 
@@ -77,10 +97,10 @@ import 'vue-json-pretty/lib/styles.css';
 <script>
 import * as DocumentTypes from '@/constants/document-types';
 
-const vUrl = "XXXX";
-const vClientId = "XXXX";
-const vUserName = "XXXX";
-const vApiKey = "XXXX";
+const vUrl = "https://api.veryfi.com/";
+const vClientId = "vrfK8SekiKYMG3VmifQwB4nmRJl9BplbnxbsYEn";
+const vUserName = "devapitest";
+const vApiKey = "f339d0936016cb84c7517b26a0932238";
 const isDebug = true
 
 export default {
@@ -175,6 +195,9 @@ export default {
     methods: {
         onDeviceReady() {
             this.deviceReady = true
+        },
+        openBrowser() {
+            window.open("https://www.youtube.com/watch?v=e4dH2An2Tl8", "_system");
         },
         start(documentType) {
             if (!this.deviceReady) return;
