@@ -1,6 +1,14 @@
 <script setup>
 import 'vue3-carousel/dist/carousel.css'
 import { Carousel, Slide, Pagination } from 'vue3-carousel'
+
+import VirtualReceipt from './virtual-components/VirtualReceipt.vue'
+import VirtualCheck from './virtual-components/VirtualCheck.vue'
+import VirtualCredirCard from './virtual-components/VirtualCreditCard.vue'
+import VirtualBusinessCard from './virtual-components/VirtualBusinessCard.vue'
+import VueJsonPretty from 'vue-json-pretty';
+import 'vue-json-pretty/lib/styles.css';
+
 </script>
 <template>
     <v-container class="mt-5">
@@ -15,76 +23,15 @@ import { Carousel, Slide, Pagination } from 'vue3-carousel'
                     <Slide v-for="slide in 2" :key="slide" class="carousel-item">
                         <div v-if="slide == 1">
 
-                            <div v-if="showVirtualReceipt">
+                            <VirtualReceipt v-if="showVirtualReceipt" />
 
-                                <div class="receipt zig-zag zig-zag-top zig-zag-bottom">
-                                    <img :src="dataExtracted.vendor.logo" width="90" height="90" class="vendor" />
-                                    <p class="text-body-2 font-weight-bold">{{ dataExtracted.vendor.name }}</p>
-                                    <p class="text-body-2">{{ dataExtracted.vendor.address }}</p>
-                                    <p class="text-body-2">{{ dataExtracted.vendor.phone_number }}</p>
-                                    <div class="divider"></div>
-                                    <p class="text-body-2">{{ dataExtracted.date }}</p>
-                                    <div class="divider"></div>
-                                    <div v-if="dataExtracted.category != null" class="d-flex flex-row justify-start">
-                                        <p class="text-body-2">Category: </p>
-                                        <p class="text-body-2 ms-1">{{ dataExtracted.category }}</p>
-                                    </div>
-                                    <div class="divider"></div>
+                            <VirtualCheck v-else-if="showVirtualCheck" />
 
-                                    <div class="d-flex flex-row pa-0 ma-0" v-for="(item, i) in dataExtracted.line_items" :key="i">
-                                        <p class="text-body-2 font-weight-bold">{{ item.quantity }}</p>
-                                        <p class="text-body-2 font-weight-bold ms-3 me-auto">
-                                            {{ item.description }}
-                                        </p>
-                                        <p class="text-body-2 font-weight-bold">{{ item.total }}</p>
-                                    </div>
+                            <VirtualCredirCard v-else-if="showVirtualCreditCard" />
 
-                                    <div v-if="dataExtracted.line_items.length > 0" class="divider"></div>
-                                    <div class="d-flex flex-row justify-space-between">
-                                        <p class="text-body-2">Subtotal:</p>
-                                        <p class="text-body-2">{{ dataExtracted.subtotal }}</p>
-                                    </div>
-                                    <div class="d-flex flex-row justify-space-between">
-                                        <p class="text-body-2">Tax:</p>
-                                        <p class="text-body-2">{{ dataExtracted.tax }}</p>
-                                    </div>
-                                    <div class="d-flex flex-row justify-space-between">
-                                        <p class="text-body-2">Tip:</p>
-                                        <p class="text-body-2">{{ dataExtracted.tip }}</p>
-                                    </div>
-                                    <div class="d-flex flex-row justify-space-between">
-                                        <p class="text-body-2 font-weight-bold">Total:</p>
-                                        <p class="text-body-2 font-weight-bold">{{ dataExtracted.total }}</p>
-                                    </div>
-                                    <div class="divider"></div>
-                                    <div class="d-flex flex-row justify-space-between">
-                                        <p class="text-body-2">Currency:</p>
-                                        <p class="text-body-2">{{ dataExtracted.currency_code }}</p>
-                                    </div>
-                                    <div class="d-flex flex-row justify-space-between">
-                                        <p class="text-body-2">Payment:</p>
-                                        <p class="text-body-2">{{ dataExtracted.payment.display_name }}</p>
-                                    </div>
-                                    <div class="divider"></div>
-                                    <div class="d-flex flex-row justify-space-between">
-                                        <p class="text-body-2">Reference #:</p>
-                                        <p class="text-body-2">{{ dataExtracted.reference_number }}</p>
-                                    </div>
-                                    <div class="d-flex flex-row justify-space-between">
-                                        <p class="text-body-2">Invoice #:</p>
-                                        <p class="text-body-2">{{ dataExtracted.invoice_number }}</p>
-                                    </div>
-                                </div>
+                            <VirtualBusinessCard v-else-if="showVirtualBusinessCard" />
 
-                            </div>
-
-                            <div v-else-if="showVirtualCheck">
-
-                                <div>
-                                    Check data
-                                </div>
-
-                            </div>
+                            <vue-json-pretty v-else :data="dataExtracted" />
 
                         </div>
 
@@ -120,70 +67,11 @@ import { Carousel, Slide, Pagination } from 'vue3-carousel'
             #2DB5D2);
 }
 
-.receipt {
-    width: 270px;
-    padding: 10px;
-    max-height: 500px;
-    -webkit-box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    border-radius: 2px;
-    overflow: scroll;
-}
-
-.zig-zag {
-    background: #FFF;
-    position: relative;
-}
-
-.zig-zag-top:before,
-.zig-zag-bottom:after {
-    background-repeat: repeat-x;
-    content: " ";
-    display: block;
-    height: 32px;
-    width: 100%;
-    position: absolute;
-    z-index: 0;
-    left: 0;
-}
-
-.zig-zag-top:before {
-    background:
-        linear-gradient(-45deg, #FFF 16px, red 16px, blue 16px, transparent 0),
-        linear-gradient(45deg, #FFF 16px, transparent 0);
-    background-size: 22px 32px;
-    background-position: left top;
-    top: -30px;
-}
-
-.zig-zag-bottom:after {
-    background:
-        linear-gradient(-135deg, #FFF 16px, red 16px, blue 16px, transparent 0),
-        linear-gradient(135deg, #FFF 16px, transparent 0);
-    background-position: left bottom;
-    background-size: 22px 32px;
-}
-
-.vendor {
-    width: 90px;
-    height: 90;
-    border-radius: 50%;
-    border: 3px solid black;
-    object-fit: cover;
-}
-
 .image {
     width: auto;
     max-width: 300px;
     margin: 0 auto;
     max-height: 500px;
-}
-
-.divider {
-    height: 1px;
-    width: 100%;
-    background-color: #aaa;
-    margin: 3px 0;
 }
 </style>
 <script>
@@ -237,17 +125,26 @@ export default {
             }
             return documentTitle;
         },
-        imgOriginalPath() {
-            return this.$store.state.imgOriginalPath;
-        },
         dataExtracted() {
             return this.$store.state.dataExtracted;
+        },
+        imgOriginalPath() {
+            return this.$store.state.imgOriginalPath;
         },
         showVirtualReceipt() {
             return this.$store.state.documentTypeSelected == DocumentTypes.RECEIPT || this.$store.state.documentTypeSelected == DocumentTypes.LONG_RECEIPT;
         },
         showVirtualCheck() {
-            return false;
+            return this.$store.state.documentTypeSelected == DocumentTypes.CHECK;
+        },
+        showVirtualCreditCard() {
+            return this.$store.state.documentTypeSelected == DocumentTypes.CREDIT_CARD;
+        },
+        showVirtualBusinessCard() {
+            return this.$store.state.documentTypeSelected == DocumentTypes.BUSINESS_CARD;
+        },
+        showLogs() {
+            return this.$store.state.documentTypeSelected == DocumentTypes.W2 || this.$store.state.documentTypeSelected == DocumentTypes.W9 || this.$store.state.documentTypeSelected == DocumentTypes.BARCODES || this.$store.state.documentTypeSelected == DocumentTypes.BANK_STATEMENTS
         }
     },
     mounted() {
