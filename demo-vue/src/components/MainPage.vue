@@ -97,10 +97,10 @@ import 'vue-json-pretty/lib/styles.css';
 <script>
 import * as DocumentTypes from '@/constants/document-types';
 
-const vUrl = "https://api.veryfi.com/";
-const vClientId = "vrfK8SekiKYMG3VmifQwB4nmRJl9BplbnxbsYEn";
-const vUserName = "devapitest";
-const vApiKey = "f339d0936016cb84c7517b26a0932238";
+const vUrl = "XXXXX";
+const vClientId = "XXXXX";
+const vUserName = "XXXXX";
+const vApiKey = "XXXXX";
 const isDebug = true
 
 export default {
