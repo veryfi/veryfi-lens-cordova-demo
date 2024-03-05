@@ -8,11 +8,13 @@ import '@mdi/font/css/materialdesignicons.css';
 import MainPage from './components/MainPage.vue';
 import ExtractedDataPage from './components/ExtractedDataPage.vue';
 import ConsolePage from './components/ConsolePage.vue';
+import OCRExtractedDataPage from './components/OCRExtractedDataPage.vue';
 
 const routes = [
     { path: '/', name: 'Main', component: MainPage },
     { path: '/extracted-data', name: 'Extracted data', component: ExtractedDataPage },
     { path: '/console', name: 'Lens console', component: ConsolePage },
+    { path: '/ocr-extracted-data', name: 'OCR Extracted Data', component: OCRExtractedDataPage },
 ]
 
 const router = createRouter({
