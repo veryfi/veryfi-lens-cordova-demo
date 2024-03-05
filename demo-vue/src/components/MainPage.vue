@@ -221,6 +221,15 @@ export default {
             this.settingDialogIsOpen = true
         },
         checkLogs(response) {
+            if (this.documentTypeSelected == DocumentTypes.CODE) {
+                if (response.event == "veryfi_lens_success") {
+                    this.$store.state.dataExtracted = response;
+                    this.$router.push('/ocr-extracted-data');
+                    this.showLogs = false;
+                    this.showLoading = false;
+                }
+                return
+            }
             switch (response.status) {
                 case "inprogress":
                     if (!this.showLoading && this.documentTypeSelected != DocumentTypes.CREDIT_CARD || this.documentTypeSelected != DocumentTypes.BARCODES) this.showLoading = true;

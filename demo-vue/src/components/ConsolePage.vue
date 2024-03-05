@@ -4,7 +4,7 @@ import 'vue-json-pretty/lib/styles.css';
 </script>
 <template>
     <v-container class="pt-10">
-        <v-row fixed>
+        <v-row>
             <v-col cols="1">
                 <v-icon icon="mdi-arrow-left" size="x-large" @click="goBack()"></v-icon>
             </v-col>
