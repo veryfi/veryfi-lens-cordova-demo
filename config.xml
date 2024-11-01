@@ -24,6 +24,7 @@
             <icon src="res/android/mipmap-xxxhdpi/ic_launcher.png" density="xxxhdpi"/>
         </platform>
         <platform name="ios">
+            <preference name="scheme" value="app" />
             <allow-intent href="itms:*" />
             <allow-intent href="itms-apps:*" />
             <icon src="res/ios/16.png" width="16" height="16" />
@@ -56,4 +57,13 @@
         <preference name="android-targetSdkVersion" value="34"/>
         <preference name="android-minSdkVersion" value="23"/>
         <preference name="android-compileSdkVersion" value="34"/>
+        <edit-config target="NSCameraUsageDescription" file="*-Info.plist" mode="merge">
+            <string>Scan documents</string>
+        </edit-config>
+        <edit-config target="NSPhotoLibraryAddUsageDescription" file="*-Info.plist" mode="merge">
+            <string>Back up your document images in your photo gallery</string>
+        </edit-config>
+                <edit-config target="NSPhotoLibraryUsageDescription" file="*-Info.plist" mode="merge">
+            <string>Choose document images to process from your photo gallery</string>
+        </edit-config>
     </widget>
