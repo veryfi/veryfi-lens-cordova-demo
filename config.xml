@@ -54,9 +54,9 @@
             <icon src="res/ios/1024.png" width="1024" height="1024" />
         </platform>
         <preference name="AndroidXEnabled" value="true" />
-        <preference name="android-targetSdkVersion" value="34"/>
+        <preference name="android-targetSdkVersion" value="35"/>
         <preference name="android-minSdkVersion" value="23"/>
-        <preference name="android-compileSdkVersion" value="34"/>
+        <preference name="android-compileSdkVersion" value="35"/>
         <edit-config target="NSCameraUsageDescription" file="*-Info.plist" mode="merge">
             <string>Scan documents</string>
         </edit-config>
