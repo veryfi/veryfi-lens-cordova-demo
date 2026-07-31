@@ -26,8 +26,14 @@ const baseConfig = {
     boundingBoxesIsOn: false,
     backupDocsToGallery: true,
     cleanBordersIsOn: false,
-    checksBacksIsOn: false,
+    checksBackIsOn: false,
     checksBackIsRequired: false,
+    checkSequenceMode: false,
+    validateCheckSides: false,
+    retrieveCheckTiffIsOn: false,
+    rejectInvalidCheckTIFF: false,
+    forceLandscapeImage: false,
+    checksCropMargin: 0,
     creditCardAutoCaptureMode: "Normal",
     creditCardMarginTop: 100,
     creditCardMarginBottom: 0,
@@ -106,6 +112,13 @@ defaultLongReceiptConfig.documentTypes = [DocumentTypes.LONG_RECEIPT];
 
 export const defaultCheckConfig = {...baseConfig};
 defaultCheckConfig.documentTypes = [DocumentTypes.CHECK];
+defaultCheckConfig.checkSequenceMode = true;
+defaultCheckConfig.checksBackIsRequired = true;
+defaultCheckConfig.validateCheckSides = true;
+defaultCheckConfig.retrieveCheckTiffIsOn = true;
+defaultCheckConfig.rejectInvalidCheckTIFF = true;
+defaultCheckConfig.forceLandscapeImage = true;
+defaultCheckConfig.checksCropMargin = 2;
 
 export const defaultCreditCardConfig = {...baseConfig};
 defaultCreditCardConfig.documentTypes = [DocumentTypes.CREDIT_CARD];

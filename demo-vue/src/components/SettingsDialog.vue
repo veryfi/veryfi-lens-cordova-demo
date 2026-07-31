@@ -296,6 +296,60 @@ export default {
                 }
             },
             {
+                setting: "checkSequenceMode",
+                type: "switch",
+                text: "Check sequence mode",
+                isVisible: () => {
+                    const visibleFor = [DocumentTypes.CHECK];
+                    return visibleFor.includes(this.documentType);
+                }
+            },
+            {
+                setting: "validateCheckSides",
+                type: "switch",
+                text: "Validate check sides",
+                isVisible: () => {
+                    const visibleFor = [DocumentTypes.CHECK];
+                    return visibleFor.includes(this.documentType);
+                }
+            },
+            {
+                setting: "retrieveCheckTiffIsOn",
+                type: "switch",
+                text: "Retrieve check TIFF",
+                isVisible: () => {
+                    const visibleFor = [DocumentTypes.CHECK];
+                    return visibleFor.includes(this.documentType);
+                }
+            },
+            {
+                setting: "rejectInvalidCheckTIFF",
+                type: "switch",
+                text: "Reject invalid check TIFF",
+                isVisible: () => {
+                    const visibleFor = [DocumentTypes.CHECK];
+                    return visibleFor.includes(this.documentType);
+                }
+            },
+            {
+                setting: "forceLandscapeImage",
+                type: "switch",
+                text: "Force landscape image",
+                isVisible: () => {
+                    const visibleFor = [DocumentTypes.CHECK];
+                    return visibleFor.includes(this.documentType);
+                }
+            },
+            {
+                setting: "checksCropMargin",
+                type: "text",
+                text: "Checks crop margin",
+                isVisible: () => {
+                    const visibleFor = [DocumentTypes.CHECK];
+                    return visibleFor.includes(this.documentType);
+                }
+            },
+            {
                 setting: "anyDocumentType",
                 type: "text",
                 text: "Any document type",
@@ -901,6 +955,8 @@ export default {
                 this.$store.state[this.documentType][this.dialogInfo.setting] = newValue.split(",");
             } else if (newValue == "" && this.dialogInfo.setting == "tags") {
                 this.$store.state[this.documentType][this.dialogInfo.setting] = null;
+            } else if (this.dialogInfo.setting == "checksCropMargin") {
+                this.$store.state[this.documentType][this.dialogInfo.setting] = Number(newValue);
             } else {
                 this.$store.state[this.documentType][this.dialogInfo.setting] = newValue;
             }
