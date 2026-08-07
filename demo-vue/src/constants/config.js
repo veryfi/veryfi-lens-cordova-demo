@@ -57,7 +57,6 @@ const baseConfig = {
     gpuIsOn: true,
     glareDetectionIsOn: true,
     anyDocumentType: "",
-    isProduction: true,
     locationServicesIsOn: false,
     moreMenuIsOn: true,
     moreSettingsMenuIsOn: true,
