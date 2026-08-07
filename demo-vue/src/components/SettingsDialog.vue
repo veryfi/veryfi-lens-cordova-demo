@@ -778,11 +778,6 @@ export default {
                 }
             },
             {
-                setting: 'isProduction',
-                type: 'switch',
-                text: 'Is production',
-            },
-            {
                 setting: 'confidenceDetailsIsOn',
                 type: 'switch',
                 text: 'Confidence details',
