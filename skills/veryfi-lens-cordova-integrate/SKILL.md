@@ -8,6 +8,7 @@ description: >-
   Ionic-Cordova app, wiring Lens callbacks, or capturing receipts, long receipts,
   checks, credit cards, business cards, barcodes, OCR strips or caps, W-2, W-9,
   or Any-Documents through this plugin.
+  Covers Lens analytics events and notification subscription (events.md).
 ---
 
 # Veryfi Lens Cordova integration
@@ -72,6 +73,7 @@ Read one level deep:
 | `init`, `showCamera`, events, other calls | [syntax.md](syntax.md) |
 | iOS bridge vs Android bridge | [platforms.md](platforms.md) |
 | Callbacks, files, entry points | [implementation.md](implementation.md) |
+| Analytics events and metrics | [events.md](events.md) |
 | Base + recipe objects | [recipes.md](recipes.md) |
 | Setting groups | [settings-groups.md](settings-groups.md) |
 | Key meanings | [settings-catalog.md](settings-catalog.md) |
@@ -159,3 +161,7 @@ When generating host code, produce:
 3. Base hardening plus one recipe, with a one-line comment per non-obvious key
 4. Which platform limits still apply (Android type gate, retry callback steal, no configure success flag)
 5. A short conflict note if any residual risk remains
+
+## Analytics and metrics
+
+Lens already records interaction events. When the host wants those metrics, subscribe as in [events.md](events.md). Use the event names listed there. Do not invent names. On Android, register `com.veryfi.lens.VeryfiLensSecureAnalyticsEvent`, not the deprecated `com.veryfi.lens.VeryfiLensAnalyticsEvent`. A plugin host calls the plugin observe API instead of registering that broadcast itself.
